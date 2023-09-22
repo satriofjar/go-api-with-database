@@ -15,7 +15,7 @@ func main() {
 	route.GET("/api/product/:id", productcontroller.Show)
 	route.POST("/api/product", productcontroller.Create)
 	route.PUT("/api/product/:id", productcontroller.Update)
-	route.DELETE("/api/product", productcontroller.Delete)
+	route.DELETE("/api/product/:id", productcontroller.Delete)
 
 	route.Run(":8000")
 }

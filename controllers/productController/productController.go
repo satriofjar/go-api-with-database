@@ -66,5 +66,17 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
+	var product models.Product
+	id := c.Param("id")
 
+	if err := models.DB.First(&product, id).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Data not found"})
+		return
+	}
+	if err := models.DB.Delete(&product).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Failed to delete data"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Succesfully delete"})
 }
